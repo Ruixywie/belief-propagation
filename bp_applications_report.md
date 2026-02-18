@@ -14,6 +14,15 @@ This report focuses on the application of BP in three distinct domains: **image 
 
 ## 模块一：基于 BP 的图像降噪 | Module 1: BP-Based Image Denoising
 
+> **技术总结 | Technical Summary**
+>
+> **算法**：Min-Sum Loopy BP（对数域 Max-Product BP）| **Algorithm**: Min-Sum Loopy BP (log-domain Max-Product BP)
+> **图模型**：4-连接网格 MRF，像素为变量节点 | **Graphical Model**: 4-connected grid MRF with pixels as variable nodes
+> **一元势**：高斯似然 $(v(l) - y)^2 / 2\sigma^2$ | **Unary**: Gaussian likelihood $(v(l) - y)^2 / 2\sigma^2$
+> **二元势**：截断二次/线性模型（边缘保留）| **Pairwise**: Truncated quadratic/linear model (edge-preserving)
+> **关键技术**：距离变换加速 + 阻尼消息更新 + float32 优化 | **Key Techniques**: Distance transform acceleration + damped message updates + float32 optimization
+> **推理目标**：MAP 估计（能量最小化）| **Inference Goal**: MAP estimation (energy minimization)
+
 ### 案例：本组 Web 降噪应用 | Case Study: Our Web Denoising Application
 
 本模块的案例来自本组实现的交互式图像降噪 Web 应用（`Group/application/`），采用 Flask 框架，后端核心为 Min-Sum Loopy BP 算法在 4-连接 MRF 网格上的实现。
@@ -182,6 +191,15 @@ In this application, the key roles of BP are:
 ---
 
 ## 模块二：基于 BP 的立体匹配 | Module 2: BP-Based Stereo Matching
+
+> **技术总结 | Technical Summary**
+>
+> **算法**：Hierarchical BP（分层置信传播）— 多尺度粗到细 Min-Sum BP | **Algorithm**: Hierarchical BP — multi-scale coarse-to-fine Min-Sum BP
+> **图模型**：4-连接网格 MRF，像素为变量节点，视差为标签 | **Graphical Model**: 4-connected grid MRF with pixels as variable nodes, disparity as labels
+> **数据代价**：Census Transform 汉明距离 / SAD 窗口匹配 | **Data Cost**: Census Transform Hamming distance / SAD window matching
+> **平滑代价**：截断二次距离变换 | **Smoothness Cost**: Truncated quadratic distance transform
+> **关键技术**：高斯金字塔 + 消息上采样（标签维线性插值）+ 阻尼 + 后处理（中值/双边滤波）+ CuPy GPU 加速 | **Key Techniques**: Gaussian pyramid + message upsampling (label-dim linear interpolation) + damping + post-processing (median/bilateral filter) + CuPy GPU acceleration
+> **推理目标**：MAP 估计（MRF 能量最小化 → 最优视差图）| **Inference Goal**: MAP estimation (MRF energy minimization → optimal disparity map)
 
 ### 案例：本组 Web 立体匹配应用 | Case Study: Our Web Stereo Matching Application
 
@@ -357,6 +375,15 @@ In stereo matching, the key roles of BP are:
 ---
 
 ## 模块三：基于 BP 的蛋白质侧链构象预测 | Module 3: BP-Based Protein Side-Chain Conformation Prediction
+
+> **技术总结 | Technical Summary**
+>
+> **算法**：SCWRL4（Dead-End Elimination + 图分解）/ TRBP（Tree-Reweighted BP）| **Algorithm**: SCWRL4 (Dead-End Elimination + graph decomposition) / TRBP (Tree-Reweighted BP)
+> **图模型**：残基交互图（空间距离 < 阈值的残基对连边），变量 = rotamer 选择 | **Graphical Model**: Residue interaction graph (edges between residue pairs within distance threshold), variables = rotamer choice
+> **一元势**：残基自身能量（主链-侧链相互作用 + rotamer 先验）| **Unary**: Residue self-energy (backbone-sidechain interaction + rotamer prior)
+> **二元势**：残基对相互作用（范德华力 + 静电）| **Pairwise**: Residue pair interaction (van der Waals + electrostatics)
+> **关键技术**：DEE 剪枝 + 图连通分量分解 + ROSETTA 力场 + TRBP 生成树凸组合 | **Key Techniques**: DEE pruning + graph connected component decomposition + ROSETTA force field + TRBP spanning tree convex combination
+> **推理目标**：MAP 估计（全局能量最小的 rotamer 组合）| **Inference Goal**: MAP estimation (globally minimal energy rotamer assignment)
 
 ### 案例：SCWRL 系列与 TRBP 方法 | Case Study: SCWRL Series and TRBP Methods
 
