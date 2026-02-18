@@ -146,6 +146,23 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
 /* ── KaTeX overrides ──────────────────────────────── */
 .katex-display { overflow-x: auto; overflow-y: hidden; padding: .5rem 0; }
 
+/* ── Nav link ─────────────────────────────────────── */
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding: .35rem 1rem;
+  font-size: .9rem;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  transition: background .2s, color .2s;
+}
+.back-link:hover {
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
+
 /* ── Responsive ───────────────────────────────────── */
 @media (max-width: 600px) {
   body { padding: 1rem; }
@@ -156,6 +173,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
 </style>
 </head>
 <body>
+<a class="back-link" href="bp_applications_report.html">→ BP 应用报告 / BP Applications Report</a>
 <h1>Belief Propagation: Principles, Algorithms, and Applications</h1>
 <p>信念传播：原理、算法和应用</p>
 <hr />
