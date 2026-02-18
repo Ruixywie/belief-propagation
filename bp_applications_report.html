@@ -137,12 +137,14 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
 <h2>模块一：基于 BP 的图像降噪 | Module 1: BP-Based Image Denoising</h2>
 <blockquote>
 <p><strong>技术总结 | Technical Summary</strong></p>
-<p><strong>算法</strong>：Min-Sum Loopy BP（对数域 Max-Product BP）| <strong>Algorithm</strong>: Min-Sum Loopy BP (log-domain Max-Product BP)
-<strong>图模型</strong>：4-连接网格 MRF，像素为变量节点 | <strong>Graphical Model</strong>: 4-connected grid MRF with pixels as variable nodes
-<strong>一元势</strong>：高斯似然 $(v(l) - y)^2 / 2\sigma^2$ | <strong>Unary</strong>: Gaussian likelihood $(v(l) - y)^2 / 2\sigma^2$
-<strong>二元势</strong>：截断二次/线性模型（边缘保留）| <strong>Pairwise</strong>: Truncated quadratic/linear model (edge-preserving)
-<strong>关键技术</strong>：距离变换加速 + 阻尼消息更新 + float32 优化 | <strong>Key Techniques</strong>: Distance transform acceleration + damped message updates + float32 optimization
-<strong>推理目标</strong>：MAP 估计（能量最小化）| <strong>Inference Goal</strong>: MAP estimation (energy minimization)</p>
+<ul>
+<li><strong>算法 | Algorithm</strong>：Min-Sum Loopy BP（对数域 Max-Product BP）/ Min-Sum Loopy BP (log-domain Max-Product BP)</li>
+<li><strong>图模型 | Graphical Model</strong>：4-连接网格 MRF，像素为变量节点 / 4-connected grid MRF with pixels as variable nodes</li>
+<li><strong>一元势 | Unary</strong>：高斯似然 $(v(l) - y)^2 / 2\sigma^2$ / Gaussian likelihood</li>
+<li><strong>二元势 | Pairwise</strong>：截断二次/线性模型（边缘保留）/ Truncated quadratic/linear model (edge-preserving)</li>
+<li><strong>关键技术 | Key Techniques</strong>：距离变换加速 + 阻尼消息更新 + float32 优化 / Distance transform acceleration + damped message updates + float32 optimization</li>
+<li><strong>推理目标 | Inference Goal</strong>：MAP 估计（能量最小化）/ MAP estimation (energy minimization)</li>
+</ul>
 </blockquote>
 <h3>案例：本组 Web 降噪应用 | Case Study: Our Web Denoising Application</h3>
 <p>本模块的案例来自本组实现的交互式图像降噪 Web 应用（<code>Group/application/</code>），采用 Flask 框架，后端核心为 Min-Sum Loopy BP 算法在 4-连接 MRF 网格上的实现。</p>
@@ -335,12 +337,14 @@ The advantages of BP lie in its <strong>strong interpretability</strong> (every 
 <h2>模块二：基于 BP 的立体匹配 | Module 2: BP-Based Stereo Matching</h2>
 <blockquote>
 <p><strong>技术总结 | Technical Summary</strong></p>
-<p><strong>算法</strong>：Hierarchical BP（分层置信传播）— 多尺度粗到细 Min-Sum BP | <strong>Algorithm</strong>: Hierarchical BP — multi-scale coarse-to-fine Min-Sum BP
-<strong>图模型</strong>：4-连接网格 MRF，像素为变量节点，视差为标签 | <strong>Graphical Model</strong>: 4-connected grid MRF with pixels as variable nodes, disparity as labels
-<strong>数据代价</strong>：Census Transform 汉明距离 / SAD 窗口匹配 | <strong>Data Cost</strong>: Census Transform Hamming distance / SAD window matching
-<strong>平滑代价</strong>：截断二次距离变换 | <strong>Smoothness Cost</strong>: Truncated quadratic distance transform
-<strong>关键技术</strong>：高斯金字塔 + 消息上采样（标签维线性插值）+ 阻尼 + 后处理（中值/双边滤波）+ CuPy GPU 加速 | <strong>Key Techniques</strong>: Gaussian pyramid + message upsampling (label-dim linear interpolation) + damping + post-processing (median/bilateral filter) + CuPy GPU acceleration
-<strong>推理目标</strong>：MAP 估计（MRF 能量最小化 → 最优视差图）| <strong>Inference Goal</strong>: MAP estimation (MRF energy minimization → optimal disparity map)</p>
+<ul>
+<li><strong>算法 | Algorithm</strong>：Hierarchical BP（分层置信传播）— 多尺度粗到细 Min-Sum BP / Hierarchical BP — multi-scale coarse-to-fine Min-Sum BP</li>
+<li><strong>图模型 | Graphical Model</strong>：4-连接网格 MRF，像素为变量节点，视差为标签 / 4-connected grid MRF with pixels as variable nodes, disparity as labels</li>
+<li><strong>数据代价 | Data Cost</strong>：Census Transform 汉明距离 / SAD 窗口匹配 / Census Transform Hamming distance / SAD window matching</li>
+<li><strong>平滑代价 | Smoothness Cost</strong>：截断二次距离变换 / Truncated quadratic distance transform</li>
+<li><strong>关键技术 | Key Techniques</strong>：高斯金字塔 + 消息上采样（标签维线性插值）+ 阻尼 + 后处理（中值/双边滤波）+ CuPy GPU 加速 / Gaussian pyramid + message upsampling (label-dim linear interpolation) + damping + post-processing (median/bilateral filter) + CuPy GPU acceleration</li>
+<li><strong>推理目标 | Inference Goal</strong>：MAP 估计（MRF 能量最小化 → 最优视差图）/ MAP estimation (MRF energy minimization → optimal disparity map)</li>
+</ul>
 </blockquote>
 <h3>案例：本组 Web 立体匹配应用 | Case Study: Our Web Stereo Matching Application</h3>
 <p>本模块的案例来自本组实现的交互式立体匹配 Web 应用（<code>gp/</code>），采用 FastAPI 框架，后端核心为分层置信传播（Hierarchical BP）算法，支持 CuPy GPU 加速。</p>
@@ -553,12 +557,14 @@ However, the <strong>intellectual influence of BP stereo matching is profound</s
 <h2>模块三：基于 BP 的蛋白质侧链构象预测 | Module 3: BP-Based Protein Side-Chain Conformation Prediction</h2>
 <blockquote>
 <p><strong>技术总结 | Technical Summary</strong></p>
-<p><strong>算法</strong>：SCWRL4（Dead-End Elimination + 图分解）/ TRBP（Tree-Reweighted BP）| <strong>Algorithm</strong>: SCWRL4 (Dead-End Elimination + graph decomposition) / TRBP (Tree-Reweighted BP)
-<strong>图模型</strong>：残基交互图（空间距离 &lt; 阈值的残基对连边），变量 = rotamer 选择 | <strong>Graphical Model</strong>: Residue interaction graph (edges between residue pairs within distance threshold), variables = rotamer choice
-<strong>一元势</strong>：残基自身能量（主链-侧链相互作用 + rotamer 先验）| <strong>Unary</strong>: Residue self-energy (backbone-sidechain interaction + rotamer prior)
-<strong>二元势</strong>：残基对相互作用（范德华力 + 静电）| <strong>Pairwise</strong>: Residue pair interaction (van der Waals + electrostatics)
-<strong>关键技术</strong>：DEE 剪枝 + 图连通分量分解 + ROSETTA 力场 + TRBP 生成树凸组合 | <strong>Key Techniques</strong>: DEE pruning + graph connected component decomposition + ROSETTA force field + TRBP spanning tree convex combination
-<strong>推理目标</strong>：MAP 估计（全局能量最小的 rotamer 组合）| <strong>Inference Goal</strong>: MAP estimation (globally minimal energy rotamer assignment)</p>
+<ul>
+<li><strong>算法 | Algorithm</strong>：SCWRL4（Dead-End Elimination + 图分解）/ TRBP（Tree-Reweighted BP）/ SCWRL4 (DEE + graph decomposition) / TRBP (Tree-Reweighted BP)</li>
+<li><strong>图模型 | Graphical Model</strong>：残基交互图（空间距离 &lt; 阈值的残基对连边），变量 = rotamer 选择 / Residue interaction graph (edges between residue pairs within distance threshold), variables = rotamer choice</li>
+<li><strong>一元势 | Unary</strong>：残基自身能量（主链-侧链相互作用 + rotamer 先验）/ Residue self-energy (backbone-sidechain interaction + rotamer prior)</li>
+<li><strong>二元势 | Pairwise</strong>：残基对相互作用（范德华力 + 静电）/ Residue pair interaction (van der Waals + electrostatics)</li>
+<li><strong>关键技术 | Key Techniques</strong>：DEE 剪枝 + 图连通分量分解 + ROSETTA 力场 + TRBP 生成树凸组合 / DEE pruning + graph connected component decomposition + ROSETTA force field + TRBP spanning tree convex combination</li>
+<li><strong>推理目标 | Inference Goal</strong>：MAP 估计（全局能量最小的 rotamer 组合）/ MAP estimation (globally minimal energy rotamer assignment)</li>
+</ul>
 </blockquote>
 <h3>案例：SCWRL 系列与 TRBP 方法 | Case Study: SCWRL Series and TRBP Methods</h3>
 <p>本模块聚焦蛋白质结构预测中的一个经典子问题——<strong>侧链构象预测（Side-Chain Prediction）</strong>，分析 SCWRL4 和 TRBP（Tree-Reweighted BP）方法中 BP 的应用。</p>
