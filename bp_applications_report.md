@@ -1,5 +1,35 @@
 # 置信传播（BP）算法的应用报告 | Application Report on Belief Propagation (BP) Algorithm
 
+## 在线演示 | Live Demo
+
+| 应用 Application | 链接 Link |
+|---|---|
+| **BP 图像降噪** / BP Image Denoising | [http://47.121.115.135:5000](http://47.121.115.135:5000) |
+| **BP 立体匹配** / BP Stereo Matching | [http://47.121.115.135:8000](http://47.121.115.135:8000) |
+
+### 图像降噪使用教程 | Image Denoising Quick Guide
+
+1. 打开降噪应用页面，将图片拖拽到上传区域，或点击上传区域选择本地图片文件。
+2. 上传后页面会显示原始图像和加噪图像的预览。拖动 **Noise σ** 滑块可实时调整噪声强度，预览区的加噪图像和 PSNR 值会随之更新。
+3. 根据需要调整其他参数：**BP Iterations**（迭代次数，越大效果越好但越慢）、**Quantization Levels**（量化级别）、**Smoothness Weight**（平滑权重，控制去噪平滑程度）、**Damping**（阻尼系数，抑制振荡）等。
+4. 点击 **Start Denoising** 按钮开始去噪，页面会显示进度条和中间结果的实时预览。
+5. 去噪完成后，结果页面展示含噪/去噪 PSNR 对比指标、一个左右拖拽的对比滑块（左侧为含噪图、右侧为去噪结果），以及各迭代的缩略图。
+6. 点击 **Start Over** 可重置所有状态，重新上传新图片。
+
+> Open the denoising app page and drag-and-drop an image onto the upload area (or click to browse). After uploading, the original and noisy image previews appear. Drag the **Noise σ** slider to adjust noise intensity in real time. Tune other parameters as needed (iterations, smoothness weight, damping, etc.), then click **Start Denoising**. A progress bar and live intermediate preview will be displayed. Once complete, a comparison slider (noisy vs. denoised) and PSNR metrics are shown. Click **Start Over** to reset.
+
+### 立体匹配使用教程 | Stereo Matching Quick Guide
+
+1. 打开立体匹配应用页面。页面提供了三组内置样本场景（Blocks、Corridor、Spheres），点击任意一组样本卡片即可加载对应的左右双目图像。
+2. 也可以点击 **Upload Custom Pair** 上传自定义的左右图像对（需为已校正的立体图像对）。
+3. 加载图像后，在参数面板中调整：**Max Disparity**（最大视差范围）、**Lambda**（平滑权重）、**Truncation**（截断阈值）、**Pyramid Levels**（金字塔层数）、**Iterations/Level**（每层迭代次数）、**Cost Method**（匹配代价方法：Census 或 SAD）。
+4. 点击 **Run Matching** 开始立体匹配，页面会实时显示处理进度。
+5. 匹配完成后，结果页面展示原始视差图、滤波后视差图、彩色深度图。如果使用内置样本（带有真值），还会显示误差图以及 MAE 和错误率等评估指标。
+
+> Open the stereo matching app page. Three built-in sample scenes (Blocks, Corridor, Spheres) are available — click any sample card to load the left/right image pair. Alternatively, upload your own rectified stereo pair via **Upload Custom Pair**. Adjust parameters (max disparity, lambda, truncation, pyramid levels, iterations per level, cost method), then click **Run Matching**. Progress is displayed in real time. Results show raw disparity, filtered disparity, and a colorized depth map. For built-in samples with ground truth, an error map with MAE and error rate metrics is also displayed.
+
+---
+
 ## 引言 | Introduction
 
 置信传播（Belief Propagation, BP）是一种在图模型上进行概率推理的消息传递算法，由 Judea Pearl 于 1982 年提出。其核心思想是：图中每个节点通过与邻居交换"消息"来更新自身对变量取值的"置信度"，最终收敛到（近似）后验概率。在树结构图上 BP 可以精确求解，在含环图（Loopy BP）上则作为高效的近似推理方法被广泛应用。

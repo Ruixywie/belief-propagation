@@ -128,6 +128,49 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
 <body>
 <a class="back-link" href="index.html">← BP 理论报告 / BP Theory Report</a>
 <h1>置信传播（BP）算法的应用报告 | Application Report on Belief Propagation (BP) Algorithm</h1>
+<h2>在线演示 | Live Demo</h2>
+<table>
+<thead>
+<tr>
+<th>应用 Application</th>
+<th>链接 Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BP 图像降噪</strong> / BP Image Denoising</td>
+<td><a href="http://47.121.115.135:5000">http://47.121.115.135:5000</a></td>
+</tr>
+<tr>
+<td><strong>BP 立体匹配</strong> / BP Stereo Matching</td>
+<td><a href="http://47.121.115.135:8000">http://47.121.115.135:8000</a></td>
+</tr>
+</tbody>
+</table>
+<h3>图像降噪使用教程 | Image Denoising Quick Guide</h3>
+<ol>
+<li>打开降噪应用页面，将图片拖拽到上传区域，或点击上传区域选择本地图片文件。</li>
+<li>上传后页面会显示原始图像和加噪图像的预览。拖动 <strong>Noise σ</strong> 滑块可实时调整噪声强度，预览区的加噪图像和 PSNR 值会随之更新。</li>
+<li>根据需要调整其他参数：<strong>BP Iterations</strong>（迭代次数，越大效果越好但越慢）、<strong>Quantization Levels</strong>（量化级别）、<strong>Smoothness Weight</strong>（平滑权重，控制去噪平滑程度）、<strong>Damping</strong>（阻尼系数，抑制振荡）等。</li>
+<li>点击 <strong>Start Denoising</strong> 按钮开始去噪，页面会显示进度条和中间结果的实时预览。</li>
+<li>去噪完成后，结果页面展示含噪/去噪 PSNR 对比指标、一个左右拖拽的对比滑块（左侧为含噪图、右侧为去噪结果），以及各迭代的缩略图。</li>
+<li>点击 <strong>Start Over</strong> 可重置所有状态，重新上传新图片。</li>
+</ol>
+<blockquote>
+<p>Open the denoising app page and drag-and-drop an image onto the upload area (or click to browse). After uploading, the original and noisy image previews appear. Drag the <strong>Noise σ</strong> slider to adjust noise intensity in real time. Tune other parameters as needed (iterations, smoothness weight, damping, etc.), then click <strong>Start Denoising</strong>. A progress bar and live intermediate preview will be displayed. Once complete, a comparison slider (noisy vs. denoised) and PSNR metrics are shown. Click <strong>Start Over</strong> to reset.</p>
+</blockquote>
+<h3>立体匹配使用教程 | Stereo Matching Quick Guide</h3>
+<ol>
+<li>打开立体匹配应用页面。页面提供了三组内置样本场景（Blocks、Corridor、Spheres），点击任意一组样本卡片即可加载对应的左右双目图像。</li>
+<li>也可以点击 <strong>Upload Custom Pair</strong> 上传自定义的左右图像对（需为已校正的立体图像对）。</li>
+<li>加载图像后，在参数面板中调整：<strong>Max Disparity</strong>（最大视差范围）、<strong>Lambda</strong>（平滑权重）、<strong>Truncation</strong>（截断阈值）、<strong>Pyramid Levels</strong>（金字塔层数）、<strong>Iterations/Level</strong>（每层迭代次数）、<strong>Cost Method</strong>（匹配代价方法：Census 或 SAD）。</li>
+<li>点击 <strong>Run Matching</strong> 开始立体匹配，页面会实时显示处理进度。</li>
+<li>匹配完成后，结果页面展示原始视差图、滤波后视差图、彩色深度图。如果使用内置样本（带有真值），还会显示误差图以及 MAE 和错误率等评估指标。</li>
+</ol>
+<blockquote>
+<p>Open the stereo matching app page. Three built-in sample scenes (Blocks, Corridor, Spheres) are available — click any sample card to load the left/right image pair. Alternatively, upload your own rectified stereo pair via <strong>Upload Custom Pair</strong>. Adjust parameters (max disparity, lambda, truncation, pyramid levels, iterations per level, cost method), then click <strong>Run Matching</strong>. Progress is displayed in real time. Results show raw disparity, filtered disparity, and a colorized depth map. For built-in samples with ground truth, an error map with MAE and error rate metrics is also displayed.</p>
+</blockquote>
+<hr />
 <h2>引言 | Introduction</h2>
 <p>置信传播（Belief Propagation, BP）是一种在图模型上进行概率推理的消息传递算法，由 Judea Pearl 于 1982 年提出。其核心思想是：图中每个节点通过与邻居交换&quot;消息&quot;来更新自身对变量取值的&quot;置信度&quot;，最终收敛到（近似）后验概率。在树结构图上 BP 可以精确求解，在含环图（Loopy BP）上则作为高效的近似推理方法被广泛应用。</p>
 <p>Belief Propagation (BP) is a message-passing algorithm for probabilistic inference on graphical models, proposed by Judea Pearl in 1982. Its core idea is that each node in the graph exchanges &quot;messages&quot; with its neighbors to update its &quot;belief&quot; about variable assignments, eventually converging to (approximate) posterior probabilities. On tree-structured graphs, BP yields exact solutions; on graphs with loops (Loopy BP), it serves as an efficient approximate inference method and has been widely adopted.</p>
